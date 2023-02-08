@@ -3,7 +3,12 @@ import { Link, useNavigate } from 'react-router-dom'
 import styles from './SignupForm.module.css'
 import * as authService from '../../services/authService'
 
-const SignupForm = props => {
+type SignupFormProps = {
+  handleSignupOrLogin: () => void,
+  updateMessage: (msg: string) => void
+}
+
+const SignupForm = (props: SignupFormProps) => {
   const navigate = useNavigate()
   const [formData, setFormData] = useState({
     name: '',
@@ -13,26 +18,26 @@ const SignupForm = props => {
   })
   const [photoData, setPhotoData] = useState({})
 
-  const handleChange = e => {
+  const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     props.updateMessage('')
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [evt.target.name]: evt.target.value,
     })
   }
 
-  const handleChangePhoto = (evt) => {
+  const handleChangePhoto = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setPhotoData({ photo: evt.target.files[0] })
   }
 
-  const handleSubmit = async e => {
-    e.preventDefault()
+  const handleSubmit = async (evt: React.FormEvent ) => {
+    evt.preventDefault()
     try {
       await authService.signup(formData, photoData.photo)
       props.handleSignupOrLogin()
       navigate('/')
     } catch (err) {
-      props.updateMessage(err.message)
+      if(typeof err === 'string') { props.updateMessage(err) }
     }
   }
 

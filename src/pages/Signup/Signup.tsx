@@ -7,9 +7,9 @@ type SignupProps = {
 }
 
 const Signup = (props: SignupProps) => {
-  const [message, setMessage] = useState([''])
+  const [message, setMessage] = useState('')
 
-  const updateMessage = (msg: string[]) => {
+  const updateMessage = (msg: string) => {
     setMessage(msg)
   }
 
