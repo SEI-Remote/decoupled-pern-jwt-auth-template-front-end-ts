@@ -1,13 +1,18 @@
 import jwt_decode from 'jwt-decode'
 
-function setToken(token) {
+interface payload {
+  exp: number,
+  iat: number,
+}
+
+function setToken(token: string) {
   localStorage.setItem('token', token)
 }
 
 function getToken() {
   let token = localStorage.getItem('token')
   if (token) {
-    const payload = jwt_decode(token)
+    const payload: payload = jwt_decode(token)
     if (payload.exp < Date.now() / 1000) {
       localStorage.removeItem('token')
       token = null

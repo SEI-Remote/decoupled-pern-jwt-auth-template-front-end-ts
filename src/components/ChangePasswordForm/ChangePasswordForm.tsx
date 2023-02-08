@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import styles from './ChangePasswordForm.module.css'
-import { FormProps } from '../../interfaces/FormProps.model'
+import { FormProps } from '../../interfaces/formProps.model'
 import * as authService from '../../services/authService'
 
 const ChangePasswordForm = ({updateMessage, handleSignupOrLogin}: FormProps) => {

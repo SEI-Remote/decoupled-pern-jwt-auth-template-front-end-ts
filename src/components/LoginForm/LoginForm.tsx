@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import styles from './LoginForm.module.css'
 import * as authService from '../../services/authService'
-import { LoginSignupFormProps } from '../../interfaces/user.model'
+import { FormProps } from '../../interfaces/formProps.model'
 
-const LoginForm = ({updateMessage, handleSignupOrLogin}: LoginSignupFormProps) => {
+const LoginForm = ({updateMessage, handleSignupOrLogin}: FormProps) => {
   const [formData, setFormData] = useState({
     email: '',
     pw: '',

@@ -9,7 +9,7 @@ async function getAllProfiles() {
   return await res.json()
 }
 
-async function addPhoto(photoData, profileId) {
+async function addPhoto(photoData: any, profileId: string) {
   const res = await fetch(`${BASE_URL}/${profileId}/add-photo`, {
     method: 'PUT',
     headers: {

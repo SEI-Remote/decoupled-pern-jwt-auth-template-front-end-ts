@@ -1,6 +1,5 @@
 import * as tokenService from './tokenService'
 import { addPhoto as addProfilePhoto } from './profileService'
-import { Blob } from '../interfaces/blob.model'
 const BASE_URL = `${process.env.REACT_APP_BACK_END_SERVER_URL}/api/auth`
 
 interface signUpFormData {
@@ -11,12 +10,13 @@ interface signUpFormData {
 }
 
 interface loginFormData {
-  name: string,
+  name?: string,
   pw: string,
+  email?: string,
   newPwConf?: string,
 }
 
-async function signup(user: signUpFormData, photo: Blob) {
+async function signup(user: signUpFormData, photo: any) {
   try {
     const res = await fetch(`${BASE_URL}/signup`, {
       method: 'POST',
