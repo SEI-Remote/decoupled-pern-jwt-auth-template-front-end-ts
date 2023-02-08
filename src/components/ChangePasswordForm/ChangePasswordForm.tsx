@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import styles from './ChangePasswordForm.module.css'
+import { FormProps } from '../../interfaces/FormProps.model'
 import * as authService from '../../services/authService'
 
-const ChangePasswordForm = props => {
+const ChangePasswordForm = ({updateMessage, handleSignupOrLogin}: FormProps) => {
   const navigate = useNavigate()
   const [formData, setFormData] = useState({
     pw: '',
@@ -11,22 +12,22 @@ const ChangePasswordForm = props => {
     newPwConf: '',
   })
 
-  const handleChange = e => {
-    props.updateMessage('')
+  const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+    updateMessage('')
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [evt.target.name]: evt.target.value,
     })
   }
 
-  const handleSubmit = async e => {
-    e.preventDefault()
+  const handleSubmit = async (evt: React.FormEvent) => {
+    evt.preventDefault()
     try {
       await authService.changePassword(formData)
-      props.handleSignupOrLogin()
+      handleSignupOrLogin()
       navigate('/')
     } catch (err) {
-      props.updateMessage(err.message)
+      if(typeof err === 'string') { updateMessage(err) }
     }
   }
 

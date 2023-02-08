@@ -19,7 +19,7 @@ const Profiles = () => {
       {profiles.length ? 
         <>
           {profiles.map((profile: Profile) =>
-            <p key={profile._id}>{profile.name}</p>
+            <p key={profile._id.toString()}>{profile.name}</p>
           )}
         </>
       :
