@@ -1,13 +1,8 @@
 import { Link } from 'react-router-dom'
-import { Types } from 'mongoose'
+import { User } from '../../interfaces/user.model'
 
 type NavBarProps = {
-  user: {
-    name: string,
-    email: string,
-    password: string,
-    profile: Types.ObjectId
-  },
+  user: User,
   handleLogout: () => void
 }
 
