@@ -1,8 +1,22 @@
 import * as tokenService from './tokenService'
 import { addPhoto as addProfilePhoto } from './profileService'
+import { Blob } from '../interfaces/blob.model'
 const BASE_URL = `${process.env.REACT_APP_BACK_END_SERVER_URL}/api/auth`
 
-async function signup(user, photo) {
+interface signUpFormData {
+  name: string,
+  email: string,
+  password: string,
+  passwordConf: string,
+}
+
+interface loginFormData {
+  name: string,
+  pw: string,
+  newPwConf?: string,
+}
+
+async function signup(user: signUpFormData, photo: Blob) {
   try {
     const res = await fetch(`${BASE_URL}/signup`, {
       method: 'POST',
@@ -36,7 +50,7 @@ function logout() {
   tokenService.removeToken()
 }
 
-async function login(credentials) {
+async function login(credentials: loginFormData) {
   try {
     const res = await fetch(`${BASE_URL}/login`, {
       method: 'POST',
@@ -55,7 +69,7 @@ async function login(credentials) {
   }
 }
 
-async function changePassword(credentials) {
+async function changePassword(credentials: loginFormData) {
   try {
     const res = await fetch(`${BASE_URL}/change-password`, {
       method: 'POST',
