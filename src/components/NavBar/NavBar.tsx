@@ -1,6 +1,17 @@
 import { Link } from 'react-router-dom'
+import { Types } from 'mongoose'
 
-const NavBar = ({ user, handleLogout }) => {
+type NavBarProps = {
+  user: {
+    name: string,
+    email: string,
+    password: string,
+    profile: Types.ObjectId
+  },
+  handleLogout: () => void
+}
+
+const NavBar = ({ user, handleLogout }: NavBarProps) => {
   return (
     <nav>
       {user ?
