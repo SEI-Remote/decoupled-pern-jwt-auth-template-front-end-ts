@@ -8,7 +8,7 @@ interface photoData {
   photo?: any
 }
 
-const SignupForm = (props: LoginSignupFormProps) => {
+const SignupForm = ({updateMessage, handleSignupOrLogin}: LoginSignupFormProps) => {
   const navigate = useNavigate()
   const [formData, setFormData] = useState({
     name: '',
@@ -19,7 +19,7 @@ const SignupForm = (props: LoginSignupFormProps) => {
   const [photoData, setPhotoData] = useState<photoData>({})
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    props.updateMessage('')
+    updateMessage('')
     setFormData({
       ...formData,
       [evt.target.name]: evt.target.value,
@@ -34,10 +34,10 @@ const SignupForm = (props: LoginSignupFormProps) => {
     evt.preventDefault()
     try {
       await authService.signup(formData, photoData.photo)
-      props.handleSignupOrLogin()
+      handleSignupOrLogin()
       navigate('/')
     } catch (err) {
-      if(typeof err === 'string') { props.updateMessage(err) }
+      if(typeof err === 'string') { updateMessage(err) }
     }
   }
 
