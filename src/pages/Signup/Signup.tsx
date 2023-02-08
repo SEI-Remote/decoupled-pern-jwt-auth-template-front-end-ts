@@ -2,10 +2,14 @@ import { useState } from 'react'
 import SignupForm from '../../components/SignupForm/SignupForm'
 import styles from './Signup.module.css'
 
-const Signup = props => {
+type SignupProps = {
+  handleSignupOrLogin: () => void
+}
+
+const Signup = (props: SignupProps) => {
   const [message, setMessage] = useState([''])
 
-  const updateMessage = msg => {
+  const updateMessage = (msg: string[]) => {
     setMessage(msg)
   }
 
