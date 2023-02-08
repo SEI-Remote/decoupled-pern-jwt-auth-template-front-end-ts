@@ -9,7 +9,6 @@ import { Routes, Route, useNavigate } from 'react-router-dom'
 // services
 
 // styles
-
 import './App.css'
 
 function App() {
