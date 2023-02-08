@@ -2,10 +2,11 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import styles from './SignupForm.module.css'
 import { LoginSignupFormProps } from '../../interfaces/user.model'
+import { Blob } from '../../interfaces/blob.model' 
 import * as authService from '../../services/authService'
 
 interface photoData {
-  photo?: any
+  photo?: Blob
 }
 
 const SignupForm = ({updateMessage, handleSignupOrLogin}: LoginSignupFormProps) => {

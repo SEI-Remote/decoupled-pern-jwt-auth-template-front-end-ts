@@ -5,6 +5,7 @@ export interface User {
     email: string,
     password: string,
     profile: Types.ObjectId
+    _id: Types.ObjectId
 }
 
 export interface LoginSignupFormProps {

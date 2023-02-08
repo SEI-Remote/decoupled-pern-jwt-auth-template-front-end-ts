@@ -16,6 +16,9 @@ import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
 // services
 import * as authService from './services/authService'
 
+// type interfaces
+import { User } from './interfaces/user.model'
+
 // styles
 import './App.css'
 
