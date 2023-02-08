@@ -30,7 +30,7 @@ const SignupForm = (props: LoginSignupFormProps) => {
     setPhotoData({ photo: evt.target.files?.[0] })
   }
 
-  const handleSubmit = async (evt: React.FormEvent ) => {
+  const handleSubmit = async (evt: React.FormEvent) => {
     evt.preventDefault()
     try {
       await authService.signup(formData, photoData.photo)
