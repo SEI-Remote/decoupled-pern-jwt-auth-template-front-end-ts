@@ -1,18 +1,14 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import styles from './SignupForm.module.css'
+import { LoginSignupFormProps } from '../../interfaces/user.model'
 import * as authService from '../../services/authService'
-
-interface SignupFormProps {
-  handleSignupOrLogin: () => void,
-  updateMessage: (msg: string) => void
-}
 
 interface photoData {
   photo?: any
 }
 
-const SignupForm = (props: SignupFormProps) => {
+const SignupForm = (props: LoginSignupFormProps) => {
   const navigate = useNavigate()
   const [formData, setFormData] = useState({
     name: '',

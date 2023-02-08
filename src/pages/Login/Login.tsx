@@ -2,10 +2,14 @@ import { useState } from 'react'
 import LoginForm from '../../components/LoginForm/LoginForm'
 import styles from './Login.module.css'
 
-const LoginPage = props => {
-  const [message, setMessage] = useState([''])
+interface LoginPageProps {
+  handleSignupOrLogin: () => void,
+} 
 
-  const updateMessage = msg => {
+const LoginPage = (props: LoginPageProps) => {
+  const [message, setMessage] = useState('')
+
+  const updateMessage = (msg: string) => {
     setMessage(msg)
   }
 

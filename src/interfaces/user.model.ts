@@ -6,3 +6,8 @@ export interface User {
     password: string,
     profile: Types.ObjectId
 }
+
+export interface LoginSignupFormProps {
+    handleSignupOrLogin: () => void,
+    updateMessage: (msg: string) => void
+}
