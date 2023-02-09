@@ -9,10 +9,8 @@ interface ChangePasswordProps {
 const ChangePassword = (props: ChangePasswordProps) => {
   const [message, setMessage] = useState('')
 
-  const updateMessage = (msg: string) => {
-    setMessage(msg)
-  }
-
+  const updateMessage = (msg: string) => setMessage(msg)
+  
   return (
     <main className={styles.container}>
       <h1>Change Password</h1>

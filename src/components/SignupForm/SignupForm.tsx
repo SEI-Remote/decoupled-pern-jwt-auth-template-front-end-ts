@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import styles from './SignupForm.module.css'
 import { FormProps } from '../../types/forms'
+import { handleErrMsg } from '../../types/validators'
 import * as authService from '../../services/authService'
 
 interface photoData {
@@ -28,7 +29,6 @@ const SignupForm = ({updateMessage, handleSignupOrLogin}: FormProps) => {
 
   const handleChangePhoto = (evt: React.ChangeEvent<HTMLInputElement>) => {
     if(evt.target.files) setPhotoData({ photo: evt.target.files.item(0) })
-    
   }
 
   const handleSubmit = async (evt: React.FormEvent) => {
@@ -38,7 +38,8 @@ const SignupForm = ({updateMessage, handleSignupOrLogin}: FormProps) => {
       handleSignupOrLogin()
       navigate('/')
     } catch (err) {
-      if(typeof err === 'string') { updateMessage(err) }
+      console.log(err)
+      handleErrMsg(err, updateMessage)
     }
   }
 

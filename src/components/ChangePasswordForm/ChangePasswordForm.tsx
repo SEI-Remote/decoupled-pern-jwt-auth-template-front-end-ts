@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import styles from './ChangePasswordForm.module.css'
 import { FormProps } from '../../types/forms'
+import { handleErrMsg } from '../../types/validators'
 import * as authService from '../../services/authService'
 
 const ChangePasswordForm = ({updateMessage, handleSignupOrLogin}: FormProps) => {
@@ -27,7 +28,8 @@ const ChangePasswordForm = ({updateMessage, handleSignupOrLogin}: FormProps) => 
       handleSignupOrLogin()
       navigate('/')
     } catch (err) {
-      if(typeof err === 'string') { updateMessage(err) }
+      console.log(err)
+      handleErrMsg(err, updateMessage)
     }
   }
 

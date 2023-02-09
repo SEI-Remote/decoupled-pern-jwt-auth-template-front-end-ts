@@ -9,9 +9,7 @@ interface LoginPageProps {
 const LoginPage = (props: LoginPageProps) => {
   const [message, setMessage] = useState('')
 
-  const updateMessage = (msg: string) => {
-    setMessage(msg)
-  }
+  const updateMessage = (msg: string) => setMessage(msg)
 
   return (
     <main className={styles.container}>

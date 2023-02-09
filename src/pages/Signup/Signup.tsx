@@ -9,9 +9,7 @@ interface SignupProps {
 const Signup = (props: SignupProps) => {
   const [message, setMessage] = useState('')
 
-  const updateMessage = (msg: string) => {
-    setMessage(msg)
-  }
+  const updateMessage = (msg: string) => setMessage(msg)
 
   return (
     <main className={styles.container}>
