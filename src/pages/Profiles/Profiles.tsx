@@ -13,18 +13,14 @@ const Profiles = () => {
     fetchProfiles()
   }, [])
 
+  if(!profiles.length) return <p>No profiles yet</p>
+
   return (
     <>
       <h1>Hello. This is a list of all the profiles.</h1>
-      {profiles.length ? 
-        <>
-          {profiles.map((profile: Profile) =>
-            <p key={profile.id.toString()}>{profile.name}</p>
-          )}
-        </>
-      :
-        <p>No profiles yet</p>
-      }
+      {profiles.map((profile: Profile) =>
+        <p key={profile.id.toString()}>{profile.name}</p>
+      )}
     </>
   )
 }
