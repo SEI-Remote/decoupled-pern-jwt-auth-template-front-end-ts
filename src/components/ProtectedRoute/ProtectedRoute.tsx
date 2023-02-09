@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 import { Navigate } from 'react-router-dom'
-import { User } from '../../interfaces/user.model'
+import { User } from '../../types/models'
 
 interface ProtectedRouteProps {
   user: User,

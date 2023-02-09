@@ -1,6 +1,6 @@
 import * as tokenService from './tokenService'
 
-const BASE_URL = `${process.env.REACT_APP_BACK_END_SERVER_URL}/api/profiles`
+const BASE_URL = `${import.meta.env.VITE_REACT_APP_BACK_END_SERVER_URL}/api/profiles`
 
 async function getAllProfiles() {
   const res = await fetch(BASE_URL, {
@@ -9,7 +9,7 @@ async function getAllProfiles() {
   return await res.json()
 }
 
-async function addPhoto(photoData: any, profileId: string) {
+async function addPhoto(photoData: any, profileId: number) {
   const res = await fetch(`${BASE_URL}/${profileId}/add-photo`, {
     method: 'PUT',
     headers: {

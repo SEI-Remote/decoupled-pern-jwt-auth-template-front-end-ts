@@ -1,8 +1,13 @@
-import jwt_decode from 'jwt-decode'
+import jwt_decode, { JwtPayload } from 'jwt-decode'
 
-interface payload {
-  exp: number,
-  iat: number,
+interface payload extends JwtPayload {
+  user?: { 
+    name: string, 
+    email: string, 
+    profile: {
+      id: number 
+    }
+  },
 }
 
 function setToken(token: string) {
@@ -13,7 +18,7 @@ function getToken() {
   let token = localStorage.getItem('token')
   if (token) {
     const payload: payload = jwt_decode(token)
-    if (payload.exp < Date.now() / 1000) {
+    if (payload.exp && payload.exp < Date.now() / 1000) {
       localStorage.removeItem('token')
       token = null
     }
@@ -25,7 +30,7 @@ function getToken() {
 
 function getUserFromToken() {
   const token = getToken()
-  return token ? jwt_decode(token).user : null
+  return token ? jwt_decode<payload>(token).user : null
 }
 
 function removeToken() {

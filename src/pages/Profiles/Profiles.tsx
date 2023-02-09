@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import * as profileService from '../../services/profileService'
-import { Profile } from '../../interfaces/profile.model'
+import { Profile } from '../../types/models'
 
 const Profiles = () => {
   const [profiles, setProfiles] = useState([])
@@ -19,7 +19,7 @@ const Profiles = () => {
       {profiles.length ? 
         <>
           {profiles.map((profile: Profile) =>
-            <p key={profile._id.toString()}>{profile.name}</p>
+            <p key={profile.id.toString()}>{profile.name}</p>
           )}
         </>
       :

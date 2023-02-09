@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { User } from '../../interfaces/user.model'
+import { User } from '../../types/models'
 
 interface NavBarProps {
   user: User,

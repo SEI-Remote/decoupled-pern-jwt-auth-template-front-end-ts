@@ -1,6 +1,6 @@
 import * as tokenService from './tokenService'
 import { addPhoto as addProfilePhoto } from './profileService'
-const BASE_URL = `${process.env.REACT_APP_BACK_END_SERVER_URL}/api/auth`
+const BASE_URL = `${import.meta.env.VITE_REACT_APP_BACK_END_SERVER_URL}/api/auth`
 
 interface signUpFormData {
   name: string,
@@ -28,12 +28,13 @@ async function signup(user: signUpFormData, photo: any) {
       throw new Error(json.err)
     } else if (json.token) {
       tokenService.setToken(json.token)
-      if (photo) {
+      const user = tokenService.getUserFromToken()
+      if (photo && user) {
         const photoData = new FormData()
         photoData.append('photo', photo)
         return await addProfilePhoto(
           photoData,
-          tokenService.getUserFromToken().profile
+          user.profile.id
         )
       }
     }
