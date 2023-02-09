@@ -1,13 +1,8 @@
 import jwt_decode, { JwtPayload } from 'jwt-decode'
+import { User } from '../types/models'
 
 interface payload extends JwtPayload {
-  user?: { 
-    name: string, 
-    email: string, 
-    profile: {
-      id: number 
-    }
-  },
+  user: User
 }
 
 function setToken(token: string) {

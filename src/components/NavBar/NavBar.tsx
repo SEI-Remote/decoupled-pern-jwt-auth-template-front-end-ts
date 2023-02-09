@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { User } from '../../types/models'
 
 interface NavBarProps {
-  user: User,
+  user: User | null,
   handleLogout: () => void
 }
 

@@ -2,11 +2,11 @@ import { useState } from 'react'
 import ChangePasswordForm from '../../components/ChangePasswordForm/ChangePasswordForm'
 import styles from './ChangePassword.module.css'
 
-interface ChangePassWordProps {
+interface ChangePasswordProps {
   handleSignupOrLogin: () => void,
 } 
 
-const ChangePassword = (props: ChangePassWordProps) => {
+const ChangePassword = (props: ChangePasswordProps) => {
   const [message, setMessage] = useState('')
 
   const updateMessage = (msg: string) => {

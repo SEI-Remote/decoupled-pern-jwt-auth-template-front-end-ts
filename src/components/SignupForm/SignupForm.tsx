@@ -5,7 +5,7 @@ import { FormProps } from '../../types/forms'
 import * as authService from '../../services/authService'
 
 interface photoData {
-  photo?: any
+  photo: File | null
 }
 
 const SignupForm = ({updateMessage, handleSignupOrLogin}: FormProps) => {
@@ -16,7 +16,7 @@ const SignupForm = ({updateMessage, handleSignupOrLogin}: FormProps) => {
     password: '',
     passwordConf: '',
   })
-  const [photoData, setPhotoData] = useState<photoData>({})
+  const [photoData, setPhotoData] = useState<photoData>({photo: null})
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     updateMessage('')
@@ -27,7 +27,8 @@ const SignupForm = ({updateMessage, handleSignupOrLogin}: FormProps) => {
   }
 
   const handleChangePhoto = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    setPhotoData({ photo: evt.target.files?.[0] })
+    if(evt.target.files) setPhotoData({ photo: evt.target.files.item(0) })
+    
   }
 
   const handleSubmit = async (evt: React.FormEvent) => {
