@@ -19,17 +19,20 @@ import * as authService from './services/authService'
 // styles
 import './App.css'
 
+// types
+import { User } from './types/models'
+
 function App() {
-  const [user, setUser] = useState(authService.getUser())
+  const [user, setUser] = useState<User | null>(authService.getUser())
   const navigate = useNavigate()
 
-  const handleLogout = () => {
+  const handleLogout = (): void => {
     authService.logout()
     setUser(null)
     navigate('/')
   }
 
-  const handleSignupOrLogin = () => {
+  const handleSignupOrLogin = (): void => {
     setUser(authService.getUser())
   }
 
