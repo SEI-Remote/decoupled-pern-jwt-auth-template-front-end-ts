@@ -1,16 +1,15 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import styles from './ChangePasswordForm.module.css'
-import { FormProps } from '../../types/forms'
+import { LoginSignupFormProps, ChangePasswordFormData } from '../../types/forms'
 import { handleErrMsg } from '../../types/validators'
 import * as authService from '../../services/authService'
 
-const ChangePasswordForm = ({ 
-  updateMessage, 
-  handleSignupOrLogin,
- }: FormProps): JSX.Element => {
+const ChangePasswordForm = (props: LoginSignupFormProps): JSX.Element => {
+  const { updateMessage, handleSignupOrLogin }: LoginSignupFormProps = props
+
   const navigate = useNavigate()
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<ChangePasswordFormData>({
     pw: '',
     newPw: '',
     newPwConf: '',
@@ -36,7 +35,7 @@ const ChangePasswordForm = ({
     }
   }
 
-  const { pw, newPw, newPwConf } = formData
+  const { pw, newPw, newPwConf }: ChangePasswordFormData = formData
 
   const isFormInvalid = (): boolean => {
     return !(pw && newPw && newPw === newPwConf)

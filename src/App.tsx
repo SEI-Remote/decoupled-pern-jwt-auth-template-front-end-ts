@@ -22,7 +22,7 @@ import './App.css'
 // types
 import { User } from './types/models'
 
-function App() {
+function App(): JSX.Element {
   const [user, setUser] = useState<User | null>(authService.getUser())
   const navigate = useNavigate()
 
