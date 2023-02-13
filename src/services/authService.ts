@@ -1,7 +1,5 @@
 import * as tokenService from './tokenService'
 import { addPhoto as addProfilePhoto } from './profileService'
-const BASE_URL = `${import.meta.env.VITE_REACT_APP_BACK_END_SERVER_URL}/api/auth`
-
 import { 
   SignupFormData, 
   LoginFormData, 
@@ -9,32 +7,34 @@ import {
 } from '../types/forms'
 import { User } from '../types/models'
 
+const BASE_URL = `${import.meta.env.VITE_REACT_APP_BACK_END_SERVER_URL}/api/auth`
+
 
 async function signup(
-  formData: signUpFormData, 
-  photo: File | null
+    formData: SignupFormData, 
+    photo: File | null
   ): Promise<void> {
-  try {
-    const res = await fetch(`${BASE_URL}/signup`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData),
-    })
-    const json = await res.json()
-    if (json.err) {
-      throw new Error(json.err)
-    } else if (json.token) {
-      tokenService.setToken(json.token)
-      const user = tokenService.getUserFromToken()
-      if (photo && user) {
-        const photoData = new FormData()
-        photoData.append('photo', photo)
-        await addProfilePhoto(photoData, user.profile.id)
+    try {
+      const res = await fetch(`${BASE_URL}/signup`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      })
+      const json = await res.json()
+      if (json.err) {
+        throw new Error(json.err)
+      } else if (json.token) {
+        tokenService.setToken(json.token)
+        const user = tokenService.getUserFromToken()
+        if (photo && user) {
+          const photoData = new FormData()
+          photoData.append('photo', photo)
+          await addProfilePhoto(photoData, user.profile.id)
+        }
       }
+    } catch (err) {
+      throw err
     }
-  } catch (err) {
-    throw err
-  }
 }
 
 function getUser(): User | null {
@@ -64,7 +64,7 @@ async function login(formData: LoginFormData): Promise<void> {
   }
 }
 
-async function changePassword(formData: LoginFormData): Promise<void> {
+async function changePassword(formData: ChangePasswordFormData): Promise<void> {
   try {
     const res = await fetch(`${BASE_URL}/change-password`, {
       method: 'POST',

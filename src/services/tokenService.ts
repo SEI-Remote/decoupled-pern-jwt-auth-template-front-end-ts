@@ -5,11 +5,11 @@ interface payload extends JwtPayload {
   user: User
 }
 
-function setToken(token: string) {
+function setToken(token: string): void {
   localStorage.setItem('token', token)
 }
 
-function getToken() {
+function getToken(): string | null {
   let token = localStorage.getItem('token')
   if (token) {
     const payload: payload = jwt_decode(token)
@@ -23,12 +23,12 @@ function getToken() {
   return token
 }
 
-function getUserFromToken() {
+function getUserFromToken(): User | null {
   const token = getToken()
   return token ? jwt_decode<payload>(token).user : null
 }
 
-function removeToken() {
+function removeToken(): void {
   localStorage.removeItem('token')
 }
 
