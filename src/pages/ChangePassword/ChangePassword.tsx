@@ -6,10 +6,10 @@ interface ChangePasswordProps {
   handleSignupOrLogin: () => void,
 } 
 
-const ChangePassword = (props: ChangePasswordProps) => {
-  const [message, setMessage] = useState('')
+const ChangePassword = (props: ChangePasswordProps): JSX.Element => {
+  const [message, setMessage] = useState<string>('')
 
-  const updateMessage = (msg: string) => setMessage(msg)
+  const updateMessage = (msg: string): void => setMessage(msg)
   
   return (
     <main className={styles.container}>
