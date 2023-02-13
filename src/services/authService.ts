@@ -2,26 +2,23 @@ import * as tokenService from './tokenService'
 import { addPhoto as addProfilePhoto } from './profileService'
 const BASE_URL = `${import.meta.env.VITE_REACT_APP_BACK_END_SERVER_URL}/api/auth`
 
-interface signUpFormData {
-  name: string,
-  email: string,
-  password: string,
-  passwordConf: string,
-}
+import { 
+  SignupFormData, 
+  LoginFormData, 
+  ChangePasswordFormData 
+} from '../types/forms'
+import { User } from '../types/models'
 
-interface loginFormData {
-  name?: string,
-  pw: string,
-  email?: string,
-  newPwConf?: string,
-}
 
-async function signup(user: signUpFormData, photo: File | null) {
+async function signup(
+  formData: signUpFormData, 
+  photo: File | null
+  ): Promise<void> {
   try {
     const res = await fetch(`${BASE_URL}/signup`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(user),
+      body: JSON.stringify(formData),
     })
     const json = await res.json()
     if (json.err) {
@@ -32,10 +29,7 @@ async function signup(user: signUpFormData, photo: File | null) {
       if (photo && user) {
         const photoData = new FormData()
         photoData.append('photo', photo)
-        return await addProfilePhoto(
-          photoData,
-          user.profile.id
-        )
+        await addProfilePhoto(photoData, user.profile.id)
       }
     }
   } catch (err) {
@@ -43,20 +37,20 @@ async function signup(user: signUpFormData, photo: File | null) {
   }
 }
 
-function getUser() {
+function getUser(): User | null {
   return tokenService.getUserFromToken()
 }
 
-function logout() {
+function logout(): void {
   tokenService.removeToken()
 }
 
-async function login(credentials: loginFormData) {
+async function login(formData: LoginFormData): Promise<void> {
   try {
     const res = await fetch(`${BASE_URL}/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(credentials),
+      body: JSON.stringify(formData),
     })
     const json = await res.json()
     if (json.token) {
@@ -70,7 +64,7 @@ async function login(credentials: loginFormData) {
   }
 }
 
-async function changePassword(credentials: loginFormData) {
+async function changePassword(formData: LoginFormData): Promise<void> {
   try {
     const res = await fetch(`${BASE_URL}/change-password`, {
       method: 'POST',
@@ -78,7 +72,7 @@ async function changePassword(credentials: loginFormData) {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${tokenService.getToken()}`,
       },
-      body: JSON.stringify(credentials),
+      body: JSON.stringify(formData),
     })
     const json = await res.json()
     if (json.token) {

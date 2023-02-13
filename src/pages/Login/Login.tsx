@@ -6,10 +6,10 @@ interface LoginPageProps {
   handleSignupOrLogin: () => void,
 } 
 
-const LoginPage = (props: LoginPageProps) => {
-  const [message, setMessage] = useState('')
+const LoginPage = (props: LoginPageProps): JSX.Element => {
+  const [message, setMessage] = useState<string>('')
 
-  const updateMessage = (msg: string) => setMessage(msg)
+  const updateMessage = (msg: string): void => setMessage(msg)
 
   return (
     <main className={styles.container}>
