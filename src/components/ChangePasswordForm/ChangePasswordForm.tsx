@@ -5,7 +5,10 @@ import { FormProps } from '../../types/forms'
 import { handleErrMsg } from '../../types/validators'
 import * as authService from '../../services/authService'
 
-const ChangePasswordForm = ({updateMessage, handleSignupOrLogin}: FormProps) => {
+const ChangePasswordForm = ({ 
+  updateMessage, 
+  handleSignupOrLogin,
+ }: FormProps): JSX.Element => {
   const navigate = useNavigate()
   const [formData, setFormData] = useState({
     pw: '',
@@ -13,7 +16,7 @@ const ChangePasswordForm = ({updateMessage, handleSignupOrLogin}: FormProps) => 
     newPwConf: '',
   })
 
-  const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
     updateMessage('')
     setFormData({
       ...formData,
@@ -21,7 +24,7 @@ const ChangePasswordForm = ({updateMessage, handleSignupOrLogin}: FormProps) => 
     })
   }
 
-  const handleSubmit = async (evt: React.FormEvent) => {
+  const handleSubmit = async (evt: React.FormEvent): Promise<void> => {
     evt.preventDefault()
     try {
       await authService.changePassword(formData)
@@ -35,7 +38,7 @@ const ChangePasswordForm = ({updateMessage, handleSignupOrLogin}: FormProps) => 
 
   const { pw, newPw, newPwConf } = formData
 
-  const isFormInvalid = () => {
+  const isFormInvalid = (): boolean => {
     return !(pw && newPw && newPw === newPwConf)
   }
 

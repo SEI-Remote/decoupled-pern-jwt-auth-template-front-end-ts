@@ -5,11 +5,11 @@ import * as authService from '../../services/authService'
 import { FormProps } from '../../types/forms'
 import { handleErrMsg } from '../../types/validators'
 
-const LoginForm = ({updateMessage, handleSignupOrLogin}: FormProps) => {
-  const [formData, setFormData] = useState({
-    email: '',
-    pw: '',
-  })
+const LoginForm = ({
+  updateMessage,
+  handleSignupOrLogin,
+}: FormProps): JSX.Element => {
+  const [formData, setFormData] = useState({ email: '', pw: '' })
   const navigate = useNavigate()
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
