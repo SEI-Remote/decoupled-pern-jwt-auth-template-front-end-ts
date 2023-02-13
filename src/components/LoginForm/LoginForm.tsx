@@ -2,22 +2,21 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import styles from './LoginForm.module.css'
 import * as authService from '../../services/authService'
-import { FormProps } from '../../types/forms'
+import { LoginSignupFormProps, LoginFormData  } from '../../types/forms'
 import { handleErrMsg } from '../../types/validators'
 
-const LoginForm = ({
-  updateMessage,
-  handleSignupOrLogin,
-}: FormProps): JSX.Element => {
-  const [formData, setFormData] = useState({ email: '', pw: '' })
+const LoginForm = (props: LoginSignupFormProps): JSX.Element => {
+  const { updateMessage, handleSignupOrLogin }: LoginSignupFormProps = props
+
+  const [formData, setFormData] = useState<LoginFormData>({ email: '', pw: '' })
   const navigate = useNavigate()
 
-  const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
     updateMessage('')
     setFormData({ ...formData, [evt.target.name]: evt.target.value })
   }
 
-  const handleSubmit = async (evt: React.FormEvent) => {
+  const handleSubmit = async (evt: React.FormEvent): Promise<void> => {
     evt.preventDefault()
     try {
       await authService.login(formData)

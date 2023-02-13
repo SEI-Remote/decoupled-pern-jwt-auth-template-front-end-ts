@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import styles from './SignupForm.module.css'
-import { FormProps } from '../../types/forms'
+import { LoginSignupFormProps, SignupFormData } from '../../types/forms'
 import { handleErrMsg } from '../../types/validators'
 import * as authService from '../../services/authService'
 
@@ -9,15 +9,17 @@ interface photoData {
   photo: File | null
 }
 
-const SignupForm = ({updateMessage, handleSignupOrLogin}: FormProps) => {
+const SignupForm = (props: LoginSignupFormProps): JSX.Element => {
+  const { updateMessage, handleSignupOrLogin }: LoginSignupFormProps = props
+
   const navigate = useNavigate()
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<SignupFormData>({
     name: '',
     email: '',
     password: '',
     passwordConf: '',
   })
-  const [photoData, setPhotoData] = useState<photoData>({photo: null})
+  const [photoData, setPhotoData] = useState<photoData>({ photo: null })
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     updateMessage('')
@@ -28,10 +30,10 @@ const SignupForm = ({updateMessage, handleSignupOrLogin}: FormProps) => {
   }
 
   const handleChangePhoto = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    if(evt.target.files) setPhotoData({ photo: evt.target.files.item(0) })
+    if (evt.target.files) setPhotoData({ photo: evt.target.files.item(0) })
   }
 
-  const handleSubmit = async (evt: React.FormEvent) => {
+  const handleSubmit = async (evt: React.FormEvent): Promise<void> => {
     evt.preventDefault()
     try {
       await authService.signup(formData, photoData.photo)
@@ -43,9 +45,9 @@ const SignupForm = ({updateMessage, handleSignupOrLogin}: FormProps) => {
     }
   }
 
-  const { name, email, password, passwordConf } = formData
+  const { name, email, password, passwordConf }: SignupFormData = formData
 
-  const isFormInvalid = () => {
+  const isFormInvalid = (): boolean => {
     return !(name && email && password && password === passwordConf)
   }
 
@@ -67,7 +69,9 @@ const SignupForm = ({updateMessage, handleSignupOrLogin}: FormProps) => {
         />
       </div>
       <div className={styles.inputContainer}>
-        <label htmlFor="email" className={styles.label}>Email</label>
+        <label htmlFor="email" className={styles.label}>
+          Email
+        </label>
         <input
           type="text"
           autoComplete="off"
@@ -78,7 +82,9 @@ const SignupForm = ({updateMessage, handleSignupOrLogin}: FormProps) => {
         />
       </div>
       <div className={styles.inputContainer}>
-        <label htmlFor="password" className={styles.label}>Password</label>
+        <label htmlFor="password" className={styles.label}>
+          Password
+        </label>
         <input
           type="password"
           autoComplete="off"

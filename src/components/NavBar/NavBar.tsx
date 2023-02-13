@@ -6,7 +6,9 @@ interface NavBarProps {
   handleLogout: () => void;
 }
 
-const NavBar = ({ user, handleLogout }: NavBarProps): JSX.Element => {
+const NavBar = (props: NavBarProps): JSX.Element => {
+  const { user, handleLogout }: NavBarProps = props
+  
   return (
     <nav>
       {user ?
