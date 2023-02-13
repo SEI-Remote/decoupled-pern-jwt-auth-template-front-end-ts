@@ -2,11 +2,11 @@ import { Link } from 'react-router-dom'
 import { User } from '../../types/models'
 
 interface NavBarProps {
-  user: User | null,
-  handleLogout: () => void
+  user: User | null;
+  handleLogout: () => void;
 }
 
-const NavBar = ({ user, handleLogout }: NavBarProps) => {
+const NavBar = ({ user, handleLogout }: NavBarProps): JSX.Element => {
   return (
     <nav>
       {user ?

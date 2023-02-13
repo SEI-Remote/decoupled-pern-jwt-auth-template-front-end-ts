@@ -16,7 +16,7 @@ interface loginFormData {
   newPwConf?: string,
 }
 
-async function signup(user: signUpFormData, photo: any) {
+async function signup(user: signUpFormData, photo: File | null) {
   try {
     const res = await fetch(`${BASE_URL}/signup`, {
       method: 'POST',
