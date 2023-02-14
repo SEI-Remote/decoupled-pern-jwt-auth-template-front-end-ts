@@ -1,5 +1,8 @@
+// npm modules
 import { ReactNode } from 'react'
 import { Navigate } from 'react-router-dom'
+
+// types
 import { User } from '../../types/models'
 
 interface ProtectedRouteProps {
@@ -8,12 +11,10 @@ interface ProtectedRouteProps {
 }
 
 const ProtectedRoute = (props: ProtectedRouteProps): JSX.Element => {
-  const { user, children }: ProtectedRouteProps = props
-  if (!user) {
-    return <Navigate to="/login" />
-  }
-  return <> {children} </>
-}
+  const { user, children } = props
 
+  if (!user) return <Navigate to="/login" />
+  return <> { children } </>
+}
 
 export default ProtectedRoute

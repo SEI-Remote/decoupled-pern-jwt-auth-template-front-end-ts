@@ -1,32 +1,35 @@
+// npm modules
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import styles from './SignupForm.module.css'
-import { LoginSignupFormProps, SignupFormData } from '../../types/forms'
-import { handleErrMsg } from '../../types/validators'
+
+// services
 import * as authService from '../../services/authService'
 
-interface photoData {
-  photo: File | null
-}
+// stylesheets
+import styles from './SignupForm.module.css'
 
-const SignupForm = (props: LoginSignupFormProps): JSX.Element => {
-  const { updateMessage, handleSignupOrLogin }: LoginSignupFormProps = props
+// types
+import { AuthFormProps } from '../../types/props'
+import { SignupFormData, PhotoFormData } from '../../types/forms'
+import { handleErrMsg } from '../../types/validators'
 
+const SignupForm = (props: AuthFormProps): JSX.Element => {
+  const {updateMessage, handleAuthEvt} = props
   const navigate = useNavigate()
+
   const [formData, setFormData] = useState<SignupFormData>({
     name: '',
     email: '',
     password: '',
     passwordConf: '',
   })
-  const [photoData, setPhotoData] = useState<photoData>({ photo: null })
+  const [photoData, setPhotoData] = useState<PhotoFormData>({
+    photo: null
+  })
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     updateMessage('')
-    setFormData({
-      ...formData,
-      [evt.target.name]: evt.target.value,
-    })
+    setFormData({ ...formData, [evt.target.name]: evt.target.value })
   }
 
   const handleChangePhoto = (evt: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,8 +39,8 @@ const SignupForm = (props: LoginSignupFormProps): JSX.Element => {
   const handleSubmit = async (evt: React.FormEvent): Promise<void> => {
     evt.preventDefault()
     try {
-      await authService.signup(formData, photoData.photo)
-      handleSignupOrLogin()
+      await authService.signup(formData, photoData)
+      handleAuthEvt()
       navigate('/')
     } catch (err) {
       console.log(err)
@@ -45,7 +48,7 @@ const SignupForm = (props: LoginSignupFormProps): JSX.Element => {
     }
   }
 
-  const { name, email, password, passwordConf }: SignupFormData = formData
+  const { name, email, password, passwordConf } = formData
 
   const isFormInvalid = (): boolean => {
     return !(name && email && password && password === passwordConf)
@@ -61,7 +64,6 @@ const SignupForm = (props: LoginSignupFormProps): JSX.Element => {
         <label htmlFor="name" className={styles.label}>Name</label>
         <input
           type="text"
-          autoComplete="off"
           id="name"
           value={name}
           name="name"
@@ -74,7 +76,6 @@ const SignupForm = (props: LoginSignupFormProps): JSX.Element => {
         </label>
         <input
           type="text"
-          autoComplete="off"
           id="email"
           value={email}
           name="email"
@@ -87,7 +88,6 @@ const SignupForm = (props: LoginSignupFormProps): JSX.Element => {
         </label>
         <input
           type="password"
-          autoComplete="off"
           id="password"
           value={password}
           name="password"
@@ -100,7 +100,6 @@ const SignupForm = (props: LoginSignupFormProps): JSX.Element => {
         </label>
         <input
           type="password"
-          autoComplete="off"
           id="confirm"
           value={passwordConf}
           name="passwordConf"

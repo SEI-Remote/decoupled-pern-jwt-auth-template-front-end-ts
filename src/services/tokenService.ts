@@ -1,7 +1,10 @@
+// npm modules
 import jwt_decode, { JwtPayload } from 'jwt-decode'
+
+// types
 import { User } from '../types/models'
 
-interface payload extends JwtPayload {
+interface Payload extends JwtPayload {
   user: User
 }
 
@@ -12,7 +15,7 @@ function setToken(token: string): void {
 function getToken(): string | null {
   let token = localStorage.getItem('token')
   if (token) {
-    const payload: payload = jwt_decode(token)
+    const payload: Payload = jwt_decode(token)
     if (payload.exp && payload.exp < Date.now() / 1000) {
       localStorage.removeItem('token')
       token = null
@@ -25,7 +28,7 @@ function getToken(): string | null {
 
 function getUserFromToken(): User | null {
   const token = getToken()
-  return token ? jwt_decode<payload>(token).user : null
+  return token ? jwt_decode<Payload>(token).user : null
 }
 
 function removeToken(): void {

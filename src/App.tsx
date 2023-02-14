@@ -16,15 +16,16 @@ import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
 // services
 import * as authService from './services/authService'
 
-// styles
+// stylesheets
 import './App.css'
 
 // types
 import { User } from './types/models'
 
 function App(): JSX.Element {
-  const [user, setUser] = useState<User | null>(authService.getUser())
   const navigate = useNavigate()
+  
+  const [user, setUser] = useState<User | null>(authService.getUser())
 
   const handleLogout = (): void => {
     authService.logout()
@@ -32,7 +33,7 @@ function App(): JSX.Element {
     navigate('/')
   }
 
-  const handleSignupOrLogin = (): void => {
+  const handleAuthEvt = (): void => {
     setUser(authService.getUser())
   }
 
@@ -43,11 +44,11 @@ function App(): JSX.Element {
         <Route path="/" element={<Landing user={user} />} />
         <Route
           path="/signup"
-          element={<Signup handleSignupOrLogin={handleSignupOrLogin} />}
+          element={<Signup handleAuthEvt={handleAuthEvt} />}
         />
         <Route
           path="/login"
-          element={<Login handleSignupOrLogin={handleSignupOrLogin} />}
+          element={<Login handleAuthEvt={handleAuthEvt} />}
         />
         <Route
           path="/profiles"
@@ -61,7 +62,7 @@ function App(): JSX.Element {
           path="/change-password"
           element={
             <ProtectedRoute user={user}>
-              <ChangePassword handleSignupOrLogin={handleSignupOrLogin} />
+              <ChangePassword handleAuthEvt={handleAuthEvt} />
             </ProtectedRoute>
           }
         />

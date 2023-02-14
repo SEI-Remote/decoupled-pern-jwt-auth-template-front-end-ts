@@ -1,4 +1,7 @@
+// npm modules
 import { Link } from 'react-router-dom'
+
+// types
 import { User } from '../../types/models'
 
 interface NavBarProps {
@@ -7,7 +10,7 @@ interface NavBarProps {
 }
 
 const NavBar = (props: NavBarProps): JSX.Element => {
-  const { user, handleLogout }: NavBarProps = props
+  const { user, handleLogout } = props
   
   return (
     <nav>
@@ -15,8 +18,8 @@ const NavBar = (props: NavBarProps): JSX.Element => {
         <ul>
           <li>Welcome, {user.name}</li>
           <li><Link to="/profiles">Profiles</Link></li>
-          <li><Link to="" onClick={handleLogout}>LOG OUT</Link></li>
           <li><Link to="/change-password">Change Password</Link></li>
+          <li><Link to="" onClick={handleLogout}>LOG OUT</Link></li>
         </ul>
       :
         <ul>

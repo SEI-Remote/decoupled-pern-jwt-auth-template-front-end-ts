@@ -1,33 +1,38 @@
+// npm modules
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import styles from './ChangePasswordForm.module.css'
-import { LoginSignupFormProps, ChangePasswordFormData } from '../../types/forms'
-import { handleErrMsg } from '../../types/validators'
+
+// services
 import * as authService from '../../services/authService'
 
-const ChangePasswordForm = (props: LoginSignupFormProps): JSX.Element => {
-  const { updateMessage, handleSignupOrLogin }: LoginSignupFormProps = props
+// stylesheets
+import styles from './ChangePasswordForm.module.css'
 
+// types
+import { AuthFormProps } from '../../types/props'
+import { ChangePasswordFormData } from '../../types/forms'
+import { handleErrMsg } from '../../types/validators'
+
+const ChangePasswordForm = (props: AuthFormProps): JSX.Element => {
+  const {updateMessage, handleAuthEvt} = props
   const navigate = useNavigate()
+
   const [formData, setFormData] = useState<ChangePasswordFormData>({
-    pw: '',
-    newPw: '',
-    newPwConf: '',
+    oldPassword: '',
+    newPassword: '',
+    newPasswordConf: '',
   })
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
     updateMessage('')
-    setFormData({
-      ...formData,
-      [evt.target.name]: evt.target.value,
-    })
+    setFormData({ ...formData, [evt.target.name]: evt.target.value })
   }
 
   const handleSubmit = async (evt: React.FormEvent): Promise<void> => {
     evt.preventDefault()
     try {
       await authService.changePassword(formData)
-      handleSignupOrLogin()
+      handleAuthEvt()
       navigate('/')
     } catch (err) {
       console.log(err)
@@ -35,10 +40,10 @@ const ChangePasswordForm = (props: LoginSignupFormProps): JSX.Element => {
     }
   }
 
-  const { pw, newPw, newPwConf }: ChangePasswordFormData = formData
+  const { oldPassword, newPassword, newPasswordConf } = formData
 
   const isFormInvalid = (): boolean => {
-    return !(pw && newPw && newPw === newPwConf)
+    return !(oldPassword && newPassword && newPassword === newPasswordConf)
   }
 
   return (
@@ -53,10 +58,9 @@ const ChangePasswordForm = (props: LoginSignupFormProps): JSX.Element => {
         </label>
         <input
           type="password"
-          autoComplete="off"
-          id="password"
-          value={pw}
-          name="pw"
+          id="oldPassword"
+          value={oldPassword}
+          name="oldPassword"
           onChange={handleChange}
         />
       </div>
@@ -66,10 +70,9 @@ const ChangePasswordForm = (props: LoginSignupFormProps): JSX.Element => {
         </label>
         <input
           type="password"
-          autoComplete="off"
           id="newPassword"
-          value={newPw}
-          name="newPw"
+          value={newPassword}
+          name="newPassword"
           onChange={handleChange}
         />
       </div>
@@ -79,10 +82,9 @@ const ChangePasswordForm = (props: LoginSignupFormProps): JSX.Element => {
         </label>
         <input
           type="password"
-          autoComplete="off"
           id="newPasswordConf"
-          value={newPwConf}
-          name="newPwConf"
+          value={newPasswordConf}
+          name="newPasswordConf"
           onChange={handleChange}
         />
       </div>

@@ -1,15 +1,26 @@
-import React, { useState } from 'react'
+// npm modules
+import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+
+// services
 import styles from './LoginForm.module.css'
+
+// stylesheets
 import * as authService from '../../services/authService'
-import { LoginSignupFormProps, LoginFormData  } from '../../types/forms'
+
+// types
+import { AuthFormProps } from '../../types/props'
+import { LoginFormData } from '../../types/forms'
 import { handleErrMsg } from '../../types/validators'
 
-const LoginForm = (props: LoginSignupFormProps): JSX.Element => {
-  const { updateMessage, handleSignupOrLogin }: LoginSignupFormProps = props
-
-  const [formData, setFormData] = useState<LoginFormData>({ email: '', pw: '' })
+const LoginForm = (props: AuthFormProps): JSX.Element => {
+  const {updateMessage, handleAuthEvt} = props
   const navigate = useNavigate()
+
+  const [formData, setFormData] = useState<LoginFormData>({
+    email: '',
+    password: '',
+  })
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
     updateMessage('')
@@ -20,12 +31,18 @@ const LoginForm = (props: LoginSignupFormProps): JSX.Element => {
     evt.preventDefault()
     try {
       await authService.login(formData)
-      handleSignupOrLogin()
+      handleAuthEvt()
       navigate('/')
     } catch (err) {
       console.log(err)
       handleErrMsg(err, updateMessage)
     }
+  }
+
+  const { email, password } = formData
+
+  const isFormInvalid = (): boolean => {
+    return !(email && password)
   }
 
   return (
@@ -38,7 +55,6 @@ const LoginForm = (props: LoginSignupFormProps): JSX.Element => {
         <label htmlFor="email" className={styles.label}>Email</label>
         <input
           type="text"
-          autoComplete="off"
           id="email"
           value={formData.email}
           name="email"
@@ -49,15 +65,16 @@ const LoginForm = (props: LoginSignupFormProps): JSX.Element => {
         <label htmlFor="password" className={styles.label}>Password</label>
         <input
           type="password"
-          autoComplete="off"
           id="password"
-          value={formData.pw}
-          name="pw"
+          value={formData.password}
+          name="password"
           onChange={handleChange}
         />
       </div>
       <div>
-        <button className={styles.button}>Log In</button>
+        <button disabled={isFormInvalid()} className={styles.button}>
+          Log In
+        </button>
         <Link to="/">
           <button>Cancel</button>
         </Link>
