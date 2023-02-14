@@ -1,24 +1,27 @@
+// npm modules
 import { useState } from 'react'
+
+// components
 import LoginForm from '../../components/LoginForm/LoginForm'
+
+// stylesheets
 import styles from './Login.module.css'
 
+// types
 interface LoginPageProps {
-  handleSignupOrLogin: () => void,
+  handleAuthEvt: () => void;
 } 
 
-const LoginPage = (props: LoginPageProps) => {
+const LoginPage = (props: LoginPageProps): JSX.Element => {
   const [message, setMessage] = useState('')
 
-  const updateMessage = (msg: string) => setMessage(msg)
+  const updateMessage = (msg: string): void => setMessage(msg)
 
   return (
     <main className={styles.container}>
       <h1>Log In</h1>
       <p>{message}</p>
-      <LoginForm
-        handleSignupOrLogin={props.handleSignupOrLogin}
-        updateMessage={updateMessage}
-      />
+      <LoginForm {...props} updateMessage={updateMessage} />
     </main>
   )
 }

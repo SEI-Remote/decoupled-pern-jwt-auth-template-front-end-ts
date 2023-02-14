@@ -1,9 +1,27 @@
+/* ---------==== custom forms ====--------- */
 
-export interface FormProps {
-  handleSignupOrLogin: () => void,
-  updateMessage: (msg: string) => void
+
+
+/* ---------===== auth forms =====--------- */
+
+export interface LoginFormData {
+  email: string;
+  password: string;
 }
-export interface LoginSignupFormProps {
-  handleSignupOrLogin: () => void,
-  updateMessage: (msg: string) => void
+
+export interface SignupFormData {
+  name: string;
+  email: string;
+  password: string;
+  passwordConf: string;
+}
+
+export interface ChangePasswordFormData {
+  oldPassword: string;
+  newPassword: string;
+  newPasswordConf: string;
+}
+
+export interface PhotoFormData {
+  photo: File | null;
 }

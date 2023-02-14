@@ -1,32 +1,48 @@
-import React, { useState } from 'react'
+// npm modules
+import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+
+// services
 import styles from './LoginForm.module.css'
+
+// stylesheets
 import * as authService from '../../services/authService'
-import { FormProps } from '../../types/forms'
+
+// types
+import { AuthFormProps } from '../../types/props'
+import { LoginFormData } from '../../types/forms'
 import { handleErrMsg } from '../../types/validators'
 
-const LoginForm = ({updateMessage, handleSignupOrLogin}: FormProps) => {
-  const [formData, setFormData] = useState({
-    email: '',
-    pw: '',
-  })
+const LoginForm = (props: AuthFormProps): JSX.Element => {
+  const {updateMessage, handleAuthEvt} = props
   const navigate = useNavigate()
 
-  const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+  const [formData, setFormData] = useState<LoginFormData>({
+    email: '',
+    password: '',
+  })
+
+  const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
     updateMessage('')
     setFormData({ ...formData, [evt.target.name]: evt.target.value })
   }
 
-  const handleSubmit = async (evt: React.FormEvent) => {
+  const handleSubmit = async (evt: React.FormEvent): Promise<void> => {
     evt.preventDefault()
     try {
       await authService.login(formData)
-      handleSignupOrLogin()
+      handleAuthEvt()
       navigate('/')
     } catch (err) {
       console.log(err)
       handleErrMsg(err, updateMessage)
     }
+  }
+
+  const { email, password } = formData
+
+  const isFormInvalid = (): boolean => {
+    return !(email && password)
   }
 
   return (
@@ -39,7 +55,6 @@ const LoginForm = ({updateMessage, handleSignupOrLogin}: FormProps) => {
         <label htmlFor="email" className={styles.label}>Email</label>
         <input
           type="text"
-          autoComplete="off"
           id="email"
           value={formData.email}
           name="email"
@@ -50,15 +65,16 @@ const LoginForm = ({updateMessage, handleSignupOrLogin}: FormProps) => {
         <label htmlFor="password" className={styles.label}>Password</label>
         <input
           type="password"
-          autoComplete="off"
           id="password"
-          value={formData.pw}
-          name="pw"
+          value={formData.password}
+          name="password"
           onChange={handleChange}
         />
       </div>
       <div>
-        <button className={styles.button}>Log In</button>
+        <button disabled={isFormInvalid()} className={styles.button}>
+          Log In
+        </button>
         <Link to="/">
           <button>Cancel</button>
         </Link>
