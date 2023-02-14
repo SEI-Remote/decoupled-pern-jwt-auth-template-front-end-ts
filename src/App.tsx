@@ -19,9 +19,13 @@ import * as authService from './services/authService'
 // stylesheets
 import './App.css'
 
-function App() {
-  const [user, setUser] = useState(authService.getUser())
+// types
+import { User } from './types/models'
+
+function App(): JSX.Element {
   const navigate = useNavigate()
+  
+  const [user, setUser] = useState<User | null>(authService.getUser())
 
   const handleLogout = (): void => {
     authService.logout()

@@ -33,10 +33,10 @@ const SignupForm = (props: AuthFormProps): JSX.Element => {
   }
 
   const handleChangePhoto = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    if(evt.target.files) setPhotoData({ photo: evt.target.files.item(0) })
+    if (evt.target.files) setPhotoData({ photo: evt.target.files.item(0) })
   }
 
-  const handleSubmit = async (evt: React.FormEvent) => {
+  const handleSubmit = async (evt: React.FormEvent): Promise<void> => {
     evt.preventDefault()
     try {
       await authService.signup(formData, photoData)
@@ -50,7 +50,7 @@ const SignupForm = (props: AuthFormProps): JSX.Element => {
 
   const { name, email, password, passwordConf } = formData
 
-  const isFormInvalid = () => {
+  const isFormInvalid = (): boolean => {
     return !(name && email && password && password === passwordConf)
   }
 
@@ -71,7 +71,9 @@ const SignupForm = (props: AuthFormProps): JSX.Element => {
         />
       </div>
       <div className={styles.inputContainer}>
-        <label htmlFor="email" className={styles.label}>Email</label>
+        <label htmlFor="email" className={styles.label}>
+          Email
+        </label>
         <input
           type="text"
           id="email"
@@ -81,7 +83,9 @@ const SignupForm = (props: AuthFormProps): JSX.Element => {
         />
       </div>
       <div className={styles.inputContainer}>
-        <label htmlFor="password" className={styles.label}>Password</label>
+        <label htmlFor="password" className={styles.label}>
+          Password
+        </label>
         <input
           type="password"
           id="password"
