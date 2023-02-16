@@ -5,10 +5,9 @@
 /* ---------===== auth models =====--------- */
 
 export interface Profile {
-  name: string,
-  photo: string,
-  id: number
-  avatar?: string;
+  name: string;
+  photo?: string;
+  id: number;
   createdAt: string;
   updatedAt: string;
 }
