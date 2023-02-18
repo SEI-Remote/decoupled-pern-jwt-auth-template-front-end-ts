@@ -28,7 +28,7 @@ const Profiles = (): JSX.Element => {
     <>
       <h1>Hello. This is a list of all the profiles.</h1>
       {profiles.map((profile: Profile) =>
-        <p key={profile.id.toString()}>{profile.name}</p>
+        <p key={profile.id}>{profile.name}</p>
       )}
     </>
   )
