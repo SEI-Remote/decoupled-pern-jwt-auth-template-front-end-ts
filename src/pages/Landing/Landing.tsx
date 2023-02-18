@@ -5,7 +5,7 @@ import styles from './Landing.module.css'
 import { User } from '../../types/models'
 
 interface LandingProps {
-  user: User | null
+  user: User | null;
 }
 
 const Landing = (props: LandingProps): JSX.Element => {
