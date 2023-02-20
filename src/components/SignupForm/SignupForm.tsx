@@ -17,6 +17,7 @@ const SignupForm = (props: AuthFormProps): JSX.Element => {
   const {updateMessage, handleAuthEvt} = props
   const navigate = useNavigate()
 
+  const [isSubmitted, setIsSubmitted] = useState(false)
   const [formData, setFormData] = useState<SignupFormData>({
     name: '',
     email: '',
@@ -38,13 +39,16 @@ const SignupForm = (props: AuthFormProps): JSX.Element => {
 
   const handleSubmit = async (evt: React.FormEvent): Promise<void> => {
     evt.preventDefault()
+    if(isSubmitted) return
     try {
+      setIsSubmitted(true)
       await authService.signup(formData, photoData)
       handleAuthEvt()
       navigate('/')
     } catch (err) {
       console.log(err)
       handleErrMsg(err, updateMessage)
+      setIsSubmitted(false)
     }
   }
 
@@ -118,8 +122,11 @@ const SignupForm = (props: AuthFormProps): JSX.Element => {
         />
       </div>
       <div className={styles.inputContainer}>
-        <button disabled={isFormInvalid()} className={styles.button}>
-          Sign Up
+        <button 
+          disabled={isFormInvalid() || isSubmitted} 
+          className={styles.button}
+        >
+          {!isSubmitted ? "Sign Up" : "Sending..."}
         </button>
         <Link to="/">
           <button>Cancel</button>
