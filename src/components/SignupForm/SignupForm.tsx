@@ -126,7 +126,7 @@ const SignupForm = (props: AuthFormProps): JSX.Element => {
           disabled={isFormInvalid() || isSubmitted} 
           className={styles.button}
         >
-          {!isSubmitted ? "Sign Up" : "Sending..."}
+          {!isSubmitted ? "Sign Up" : "🚀 Sending..."}
         </button>
         <Link to="/">
           <button>Cancel</button>
