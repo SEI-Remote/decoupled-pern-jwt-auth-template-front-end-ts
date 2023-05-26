@@ -17,7 +17,7 @@ export interface SignupFormData {
 }
 
 export interface ChangePasswordFormData {
-  oldPassword: string;
+  curPassword: string;
   newPassword: string;
   newPasswordConf: string;
 }

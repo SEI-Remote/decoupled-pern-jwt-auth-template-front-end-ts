@@ -1,4 +1,4 @@
-// stylesheets
+// css
 import styles from './Landing.module.css'
 
 // types
