@@ -4,7 +4,6 @@
 
 /* ---------===== auth form props =====--------- */
 
-export interface AuthFormProps {
+export interface AuthPageProps {
   handleAuthEvt: () => void;
-  updateMessage: (msg: string) => void;
 }

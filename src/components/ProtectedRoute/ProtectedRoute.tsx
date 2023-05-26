@@ -13,7 +13,7 @@ interface ProtectedRouteProps {
 const ProtectedRoute = (props: ProtectedRouteProps): JSX.Element => {
   const { user, children } = props
 
-  if (!user) return <Navigate to="/login" />
+  if (!user) return <Navigate to="/auth/login" />
   return <> { children } </>
 }
 
